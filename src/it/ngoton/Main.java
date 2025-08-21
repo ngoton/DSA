@@ -1,11 +1,23 @@
 package it.ngoton;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("---------- Testing My Math --------------");
         System.out.println(MyMath.sqrt(9));
+
+        System.out.println("---------- Testing My BigDecimal --------------");
+        System.out.println(new MyBigDecimal("-0.12345").add(new MyBigDecimal("0.345")));
+        System.out.println(new BigDecimal("-0.12345").add(new BigDecimal("0.345")));
+        System.out.println(new MyBigDecimal("-0.12345").subtract(new MyBigDecimal("-0.345")));
+        System.out.println(new BigDecimal("-0.12345").subtract(new BigDecimal("-0.345")));
+        System.out.println(new MyBigDecimal("12345").multiply(new MyBigDecimal("-0.345")));
+        System.out.println(new BigDecimal("12345").multiply(new BigDecimal("-0.345")));
+        System.out.println(new BigDecimal("123.45").divide(new BigDecimal("-2.3451212121211"), 10, RoundingMode.DOWN));
+        System.out.println(new MyBigDecimal("123.45").divide(new MyBigDecimal("-2.3451212121211")));
 
 
         System.out.println("---------- Testing My BigInteger --------------");
@@ -29,13 +41,22 @@ public class Main {
     private static void testMyExpressions() {
         String[] expressions = {
                 "0 - 5",
+                "-3 - 5",
+                "-3 - -5",
                 "-20 + -5",
+                "-20 + 5",
+                "20 + -5",
+                "20 + 5",
                 "-12 * 4",
                 "-10 / 3",
+                "-2 / 3",
+                "20 / -3",
+                "123450000000000 / 2345",
                 "-10 % 3",
                 "102 ^ -2",
                 "71045943470 * 41564635484",
                 "316227766 * 316227766",
+                "-12345 + 34500",
                 MyBigInteger.factorial(20) + " * 10",
                 MyBigInteger.factorial(19) + " + 121",
                 MyBigInteger.factorial(35) + " * 2"

@@ -5,8 +5,9 @@ import java.util.Objects;
 
 /**
  * A custom BigInteger for learning purposes.
- * <p>Handling arbitrary-precision integers, which exceed the capacity of primitive data types like {@code int}
+ * <p>Handling arbitrary-precision integers, which exceed the capacity of primitive data types like {@code int, long}
  * <p>{@code int} base <code>2<sup>32</sup></code>, stores numbers from <code>-2<sup>31</sup></code> to <code>2<sup>31</sup>-1</code>
+ * <p>{@code long} base <code>2<sup>64</sup></code>, stores numbers from <code>-2<sup>63</sup></code> to <code>2<sup>63</sup>-1</code>
  * */
 public class MyBigInteger extends Number implements Comparable<MyBigInteger> {
     public static final MyBigInteger ZERO = new MyBigInteger(new int[]{0}, 0);
@@ -38,6 +39,10 @@ public class MyBigInteger extends Number implements Comparable<MyBigInteger> {
 
     public MyBigInteger(int value) {
         this(Integer.toString(value));
+    }
+
+    public MyBigInteger(long value) {
+        this(Long.toString(value));
     }
 
     private MyBigInteger(int[] digits, int signum) {
@@ -490,11 +495,9 @@ public class MyBigInteger extends Number implements Comparable<MyBigInteger> {
                 remainder = removeLeadingZeros(remainder);
                 result++; // How many times the subtraction is performed is the result of the division.
             }
-            if (result > 0) {
-                int[] resultDigits = new MyBigInteger(result).digits; // Convert int -> int[]
-                quotient = addSize(quotient, 1);
-                quotient = plus(quotient, resultDigits);
-            }
+            int[] resultDigits = new MyBigInteger(result).digits; // Convert int -> int[]
+            quotient = addSize(quotient, 1);
+            quotient = plus(quotient, resultDigits);
         }
         return quotient;
     }
@@ -535,7 +538,7 @@ public class MyBigInteger extends Number implements Comparable<MyBigInteger> {
         if (len1 > len2)
             return 1;
 
-        for (int i = 0; i < len1; i++) {
+        for (int i = len1-1; i >= 0; i--) {
             int a = m1[i];
             int b = m2[i];
             if (a != b) {
@@ -543,6 +546,10 @@ public class MyBigInteger extends Number implements Comparable<MyBigInteger> {
             }
         }
         return 0;
+    }
+
+    public boolean isNegative() {
+        return this.signum == -1;
     }
 
     @Override
