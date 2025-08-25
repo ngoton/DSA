@@ -129,6 +129,31 @@ public class DSAArrays {
         return nums;
     }
 
+    /**
+     * Di chuyển 0 về cuối mảng không làm thay đổi thứ tự. Không extra space.
+     * Input: list[] = {3,0,4,2,0,1}
+     * Output: [3,4,2,1,0,0]
+     * <u>
+     *     <li>Dùng 2 con trỏ đọc, ghi
+     *     <li>Duyệt mảng với con trỏ đọc
+     *     <li>Nếu giá trị khác 0 thì hoán đổi giá trị 2 con trỏ, tăng con trỏ ghi (vì con trỏ ghi đang bị dừng lại tại giá trị 0)
+     * </u>
+     */
+    static int[] moveZeroes(int[] arr) {
+        int read = 0;
+        int write = 0;
+        while (read < arr.length) {
+            if (arr[read] != 0) {
+                int temp = arr[read];
+                arr[read] = arr[write];
+                arr[write] = temp;
+                write++;
+            }
+            read++;
+        }
+        return arr;
+    }
+
     public static void main(String[] args) {
         int[] list = {1, 2, 4, 6, 3, 7, 8, 10, 5};
         System.out.println("Missing: " + findMissingNumber(list, list.length+1));
@@ -143,6 +168,12 @@ public class DSAArrays {
         System.out.println("Remove duplicates:");
         int[] arr = removeDuplicates(list5);
         for (int i : arr) {
+            System.out.print(i);
+        }
+        System.out.println("\nMove zeroes:");
+        int[] list6 = {3,0,4,2,0,1};
+        int[] arr2 = moveZeroes(list6);
+        for (int i : arr2) {
             System.out.print(i);
         }
     }
