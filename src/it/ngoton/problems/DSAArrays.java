@@ -154,6 +154,44 @@ public class DSAArrays {
         return arr;
     }
 
+    /**
+     * Sắp xếp 3 giá trị 0,1,2. Không extra space.
+     * Input: list[] = {1,0,1,2,2,1,0}
+     * Output: [0,0,1,1,1,2,2]
+     * <u>
+     *     <li>Dùng 3 con trỏ left, right, i
+     *     <li>Duyệt mảng với i <= right
+     *     <li>Bên trái left là 0
+     *     <li>Bên phải left tới i là 1
+     *     <li>Bên phải right là 2
+     *     <li>Dùng con trỏ i để duyệt:
+     *     <li>Khi arr[i]=0, thì hoán đổi với arr[left], i++, left++ (left dừng lại giữa 0 & 1)
+     *     <li>Khi arr[i]=1, thì đi tiếp, i++
+     *     <li>Khi arr[i]=2, thì hoán đổi với arr[right], right-- (right dừng giữa 2 & 1)
+     * </u>
+     */
+    static int[] sortThree(int[] arr) {
+        int i =0, left =0, right = arr.length-1;
+        while (i <= right) {
+            if (arr[i] == 0) {
+                int temp = arr[left];
+                arr[left] = arr[i];
+                arr[i] = temp;
+                left++;
+                i++;
+            } else if (arr[i] == 2) {
+                int temp = arr[right];
+                arr[right] = arr[i];
+                arr[i] = temp;
+                right--;
+            }
+            else {
+                i++;
+            }
+        }
+        return arr;
+    }
+
     public static void main(String[] args) {
         int[] list = {1, 2, 4, 6, 3, 7, 8, 10, 5};
         System.out.println("Missing: " + findMissingNumber(list, list.length+1));
@@ -174,6 +212,12 @@ public class DSAArrays {
         int[] list6 = {3,0,4,2,0,1};
         int[] arr2 = moveZeroes(list6);
         for (int i : arr2) {
+            System.out.print(i);
+        }
+        System.out.println("\nSort three:");
+        int[] list7 = {1,0,1,2,2,1,0};
+        int[] arr3 = sortThree(list7);
+        for (int i : arr3) {
             System.out.print(i);
         }
     }
